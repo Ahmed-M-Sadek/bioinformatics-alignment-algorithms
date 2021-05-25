@@ -71,11 +71,29 @@ def run():
                 root.Element("-algorithm_notice-").update("Please choose one algorithm")
                 error = True
             if not error:
-                ShowPlotWindow(choice, sequence1, sequence2)
+                if choice == "Smith-Waterman":
+                    ShowSWPlotWindow(choice, sequence1, sequence2)
+                elif choice == "Needleman-Wunch":
+                    ShowNWPlotWindow(choice, sequence1, sequence2)
+                else:
+                    ShowDMPlotWindow(choice, sequence1, sequence2)
+
     root.close()
 
 
-def ShowPlotWindow(choice, seq1, seq2):
+def ShowDMPlotWindow(choice, seq1, seq2):
+    print(choice + "," + seq1 + "," + seq2)
+    plot = pltDM.Plot(seq1, seq2, choice)
+    plot.open_window()
+
+
+def ShowNWPlotWindow(choice, seq1, seq2):
+    print(choice + "," + seq1 + "," + seq2)
+    plot = pltDM.Plot(seq1, seq2, choice)
+    plot.open_window()
+
+
+def ShowSWPlotWindow(choice, seq1, seq2):
     print(choice + "," + seq1 + "," + seq2)
     plot = pltDM.Plot(seq1, seq2, choice)
     plot.open_window()

@@ -107,6 +107,9 @@ class Plot:
 
         self.window.close()
 
+    def delay(self, timeMS):
+        self.window.read(timeout=timeMS)
+
     def refresh_graph(self):
         for item in self.added_elements:
             self.graph.DeleteFigure(item)
@@ -121,6 +124,32 @@ class Plot:
     def draw_line(self, node1, node2):
         line = self.graph.draw_line(node1.centre, node2.centre)
         self.added_elements.append(line)
+
+    def draw_arrow(self, node1, node2):
+        lines = []
+        delta1 = (0, 0)
+        delta2 = (0, 0)
+        lines.append(self.graph.draw_line(node1.centre, node2.centre))
+        if node1.centre[0] == node2.centre[0]:
+            delta1 = (-20, 20)
+            delta2 = (20, 20)
+        elif node1.centre[1] == node2.centre[1]:
+            delta1 = (20, -20)
+            delta2 = (20, 20)
+        else:
+            delta1 = (20, 0)
+            delta2 = (0, 20)
+        lines.append(
+            self.graph.draw_line(
+                node2.centre, (node2.centre[0] + delta1[0], node2.centre[1] + delta1[1])
+            )
+        )
+        lines.append(
+            self.graph.draw_line(
+                node2.centre, (node2.centre[0] + delta2[0], node2.centre[1] + delta2[1])
+            )
+        )
+        self.added_elements.append(lines)
 
     def draw_highlight(self, node1, node2, color="Green"):
         rect = self.graph.draw_rectangle(
@@ -144,13 +173,13 @@ class Plot:
             self.highlightX = step * sizeX
             if i != 0:
                 self.graph.MoveFigure(highlight2, 0, step * sizeY)
-                self.window.read(timeout=500)
+                self.delay(100)
             for j in range(0, self.no_of_cols - window_size, step):
                 score = 0
                 self.highlightX -= step * sizeX
                 if j != 0:
                     self.graph.MoveFigure(highlight1, step * sizeX, 0)
-                    self.window.read(timeout=500)
+                    self.delay(100)
                 if window_size == 1 and self.sequence1[j] == self.sequence2[i]:
                     score += 1
                 else:
@@ -166,7 +195,7 @@ class Plot:
                             j + 1 + window_size // 2
                         ]
                     )
-                    self.window.read(timeout=500)
+                    self.delay(100)
                     if (
                         (i + 1 - step + window_size // 2) >= 1
                         and (j + 1 - step + window_size // 2) >= 1
@@ -176,14 +205,14 @@ class Plot:
                         >= thresh
                     ):
                         self.draw_line(
-                            self.graph_elements[i + 1 - step + window_size // 2][
-                                j + 1 - step + window_size // 2
-                            ],
                             self.graph_elements[i + 1 + window_size // 2][
                                 j + 1 + window_size // 2
                             ],
+                            self.graph_elements[i + 1 - step + window_size // 2][
+                                j + 1 - step + window_size // 2
+                            ],
                         )
-                        self.window.read(timeout=500)
+                        self.delay(100)
             self.graph.MoveFigure(highlight1, self.highlightX, 0)
-            self.window.read(timeout=500)
+            self.delay(100)
             self.highlightX = sizeX * step
