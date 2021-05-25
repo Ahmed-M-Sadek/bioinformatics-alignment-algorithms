@@ -1,4 +1,5 @@
 import PySimpleGUI as sg
+import PlotWindow as plt
 import re
 
 layout = [
@@ -46,8 +47,8 @@ def run():
             root.Element("-algorithm_notice-").update("")
             root.Element("-sequence_notice-").update("")
 
-            sequence1 = values["-SEQ1-"]
-            sequence2 = values["-SEQ2-"]
+            sequence1 = values["-SEQ1-"].upper()
+            sequence2 = values["-SEQ2-"].upper()
 
             if not (
                 sequence_pattern.search(sequence1)
@@ -68,9 +69,11 @@ def run():
                 root.Element("-algorithm_notice-").update("Please choose one algorithm")
                 error = True
             if not error:
-                print(choice + "," + sequence1 + "," + sequence2)
+                ShowPlotWindow(choice, sequence1, sequence2)
     root.close()
 
 
 def ShowPlotWindow(choice, seq1, seq2):
-    print()
+    print(choice + "," + seq1 + "," + seq2)
+    plot = plt.Plot(seq1, seq2, choice)
+    plot.open_window()
