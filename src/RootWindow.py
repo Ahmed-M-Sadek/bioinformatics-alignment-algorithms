@@ -1,5 +1,7 @@
 import PySimpleGUI as sg
-import PlotWindow as plt
+import DotMatrix as pltDM
+import NeedlemanWunch as pltNM
+import SmithWaterman as pltSW
 import re
 
 layout = [
@@ -75,5 +77,5 @@ def run():
 
 def ShowPlotWindow(choice, seq1, seq2):
     print(choice + "," + seq1 + "," + seq2)
-    plot = plt.Plot(seq1, seq2, choice)
+    plot = pltDM.Plot(seq1, seq2, choice)
     plot.open_window()
