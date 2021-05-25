@@ -7,7 +7,7 @@ class Node:
         self.score = 0
         self.children = []
         self.size = size
-        self.image = sg.Image(filename="white.png", size=self.size, k=key)
+        self.image = sg.Image(filename="resources/white.png", size=self.size, k=key)
 
     def paths(self):
         if not self.children:
