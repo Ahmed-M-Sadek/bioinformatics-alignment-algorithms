@@ -22,7 +22,7 @@ class Plot:
                     size=(35, 1),
                     key="-MATCH-",
                     tooltip="Usually a positive number",
-                    default_text="1",
+                    default_text="2",
                 ),
             ],
             [
@@ -40,7 +40,7 @@ class Plot:
                     size=(35, 1),
                     key="-GAP-",
                     tooltip="Usually a smaller negative number",
-                    default_text="-1",
+                    default_text="-6",
                 ),
             ],
             [
@@ -277,4 +277,4 @@ class Plot:
             solution += string1 + "\n"
             solution += string2 + "\n"
             solution += "\n"
-        sg.Popup(solution)
+        sg.Popup(solution, font="Courier")

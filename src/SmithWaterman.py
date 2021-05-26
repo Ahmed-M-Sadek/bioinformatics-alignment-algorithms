@@ -22,7 +22,7 @@ class Plot:
                     size=(35, 1),
                     key="-MATCH-",
                     tooltip="Usually a positive number",
-                    default_text="1",
+                    default_text="2",
                 ),
             ],
             [
@@ -40,7 +40,7 @@ class Plot:
                     size=(35, 1),
                     key="-GAP-",
                     tooltip="Usually a smaller negative number",
-                    default_text="-1",
+                    default_text="-6",
                 ),
             ],
             [
@@ -253,7 +253,7 @@ class Plot:
                 addstring1 = ""
                 addstring2 = ""
                 for node in path:
-                    if (
+                    if node == start or (
                         node.row_index == self.no_of_rows - 1
                         and node.col_index == self.no_of_cols - 1
                     ):
@@ -273,8 +273,9 @@ class Plot:
                     prev_node = node
                     string1 = addstring1 + string1
                     string2 = addstring2 + string2
-                solution += "Possible allignment:\n"
-                solution += string1 + "\n"
-                solution += string2 + "\n"
-                solution += "\n"
-        sg.Popup(solution)
+                if string1 and string2:
+                    solution += "Possible allignment:\n"
+                    solution += string1 + "\n"
+                    solution += string2 + "\n"
+                    solution += "\n"
+        sg.Popup(solution, font="Courier")
