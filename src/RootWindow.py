@@ -1,4 +1,7 @@
 import PySimpleGUI as sg
+import DotMatrix as pltDM
+import NeedlemanWunch as pltNW
+import SmithWaterman as pltSW
 import re
 
 layout = [
@@ -46,8 +49,8 @@ def run():
             root.Element("-algorithm_notice-").update("")
             root.Element("-sequence_notice-").update("")
 
-            sequence1 = values["-SEQ1-"]
-            sequence2 = values["-SEQ2-"]
+            sequence1 = values["-SEQ1-"].upper()
+            sequence2 = values["-SEQ2-"].upper()
 
             if not (
                 sequence_pattern.search(sequence1)
@@ -68,9 +71,29 @@ def run():
                 root.Element("-algorithm_notice-").update("Please choose one algorithm")
                 error = True
             if not error:
-                print(choice + "," + sequence1 + "," + sequence2)
+                if choice == "Smith-Waterman":
+                    ShowSWPlotWindow(choice, sequence1, sequence2)
+                elif choice == "Needleman-Wunch":
+                    ShowNWPlotWindow(choice, sequence1, sequence2)
+                else:
+                    ShowDMPlotWindow(choice, sequence1, sequence2)
+
     root.close()
 
 
-def ShowPlotWindow(choice, seq1, seq2):
-    print()
+def ShowDMPlotWindow(choice, seq1, seq2):
+    print(choice + "," + seq1 + "," + seq2)
+    plot = pltDM.Plot(seq1, seq2, choice)
+    plot.open_window()
+
+
+def ShowNWPlotWindow(choice, seq1, seq2):
+    print(choice + "," + seq1 + "," + seq2)
+    plot = pltNW.Plot(seq1, seq2, choice)
+    plot.open_window()
+
+
+def ShowSWPlotWindow(choice, seq1, seq2):
+    print(choice + "," + seq1 + "," + seq2)
+    plot = pltSW.Plot(seq1, seq2, choice)
+    plot.open_window()

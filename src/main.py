@@ -1,4 +1,4 @@
-import MainWindow as root
+import RootWindow as root
 
 
 def main():
