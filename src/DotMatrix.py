@@ -1,5 +1,4 @@
 import PySimpleGUI as sg
-import time
 import Node
 
 
@@ -124,32 +123,6 @@ class Plot:
     def draw_line(self, node1, node2):
         line = self.graph.draw_line(node1.centre, node2.centre)
         self.added_elements.append(line)
-
-    def draw_arrow(self, node1, node2):
-        lines = []
-        delta1 = (0, 0)
-        delta2 = (0, 0)
-        lines.append(self.graph.draw_line(node1.centre, node2.centre))
-        if node1.centre[0] == node2.centre[0]:
-            delta1 = (-20, 20)
-            delta2 = (20, 20)
-        elif node1.centre[1] == node2.centre[1]:
-            delta1 = (20, -20)
-            delta2 = (20, 20)
-        else:
-            delta1 = (20, 0)
-            delta2 = (0, 20)
-        lines.append(
-            self.graph.draw_line(
-                node2.centre, (node2.centre[0] + delta1[0], node2.centre[1] + delta1[1])
-            )
-        )
-        lines.append(
-            self.graph.draw_line(
-                node2.centre, (node2.centre[0] + delta2[0], node2.centre[1] + delta2[1])
-            )
-        )
-        self.added_elements.append(lines)
 
     def draw_highlight(self, node1, node2, color="Green"):
         rect = self.graph.draw_rectangle(

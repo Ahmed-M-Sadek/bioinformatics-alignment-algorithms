@@ -1,6 +1,6 @@
 import PySimpleGUI as sg
 import DotMatrix as pltDM
-import NeedlemanWunch as pltNM
+import NeedlemanWunch as pltNW
 import SmithWaterman as pltSW
 import re
 
@@ -89,11 +89,11 @@ def ShowDMPlotWindow(choice, seq1, seq2):
 
 def ShowNWPlotWindow(choice, seq1, seq2):
     print(choice + "," + seq1 + "," + seq2)
-    plot = pltDM.Plot(seq1, seq2, choice)
+    plot = pltNW.Plot(seq1, seq2, choice)
     plot.open_window()
 
 
 def ShowSWPlotWindow(choice, seq1, seq2):
     print(choice + "," + seq1 + "," + seq2)
-    plot = pltDM.Plot(seq1, seq2, choice)
+    plot = pltSW.Plot(seq1, seq2, choice)
     plot.open_window()
